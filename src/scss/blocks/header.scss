@@ -1,0 +1,22 @@
+@use '/src/scss/base/variables.scss'as *;
+.header {
+    &__hamburger {
+        width: 20px;
+        gap: 5px;
+        cursor: pointer;
+        transition: all 1s;
+        &-line {
+            width: 20px;
+            height: 2px;
+            background-color: $black;
+            &:nth-child(1) {
+                transform: translateY(0px) rotate(0deg);
+                transition: all 1s;
+            }
+            &:nth-child(3) {
+                transform: translateY(0px) rotate(0deg);
+                transition: all 1s;
+            }
+        }
+    }
+}

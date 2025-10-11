@@ -1,0 +1,16 @@
+.header__hamburger--active {
+    rotate: -90deg;
+    transition: all 1s;
+    .header__hamburger-line {
+        &:nth-child(1) {
+            width: 50%;
+            transform: translateY(2.5px) rotate(-45deg);
+            transition: all 1s;
+        }
+        &:nth-child(3) {
+            width: 50%;
+            transform: translateY(-2.5px) rotate(45deg);
+            transition: all 1s;
+        }
+    }
+}

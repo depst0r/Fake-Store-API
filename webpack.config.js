@@ -3,39 +3,42 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
     entry: './src/index.js',
-
     mode: 'development',
 
     devServer: {
-        static: './dist',
+        static: {
+            directory: path.join(__dirname, 'src'),
+        },
         port: 3000,
         open: true,
-        hot: true
+        hot: true,
+        liveReload: true,
+        watchFiles: ['src/**/*.html', 'src/**/*.scss', 'src/**/*.js'],
     },
 
     output: {
         path: path.resolve(__dirname, 'dist'),
         filename: 'bundle.js',
-        clean: true
+        clean: true,
     },
 
     module: {
         rules: [{
+                test: /\.scss$/,
+                use: [
+                    'style-loader',
+                    'css-loader',
+                    'postcss-loader',
+                    'sass-loader'
+                ]
+            },
+            {
                 test: /\.js$/,
                 exclude: /node_modules/,
                 use: {
-                    loader: 'babel-loader',
-                    options: {
-                        presets: ['@babel/preset-env']
-                    }
+                    loader: 'babel-loader'
                 }
             },
-
-            {
-                test: /\.scss$/,
-                use: ['style-loader', 'css-loader', 'postcss-loader', 'sass-loader']
-            },
-
             {
                 test: /\.(png|svg|jpg|jpeg|gif)$/i,
                 type: 'asset/resource'
@@ -43,10 +46,10 @@ module.exports = {
         ]
     },
 
-
     plugins: [
         new HtmlWebpackPlugin({
-            template: './src/index.html'
+            template: './src/index.html',
+            inject: true,
         })
     ]
 };

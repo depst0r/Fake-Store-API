@@ -40,5 +40,22 @@ img {
 }
 
 body {
-    margin: 0 auto;
+    margin: 0 auto !important;
+    max-width: 1440px;
+}
+
+.container {
+    padding: 0 16px;
+}
+
+.d-flex {
+    display: flex;
+}
+
+.f-col {
+    flex-direction: column;
+}
+
+.d-grid {
+    display: grid;
 }
