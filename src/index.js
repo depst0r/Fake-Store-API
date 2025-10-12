@@ -6,6 +6,7 @@ import '/src/js/api/fakeStoreAPI.js';
 import '/src/js/store/store.js';
 import '/src/js/store/slices/cartSlice.js';
 import '/src/js/store/slices/productsSlice.js';
+import '/src/js/utils/icons.js';
 import {
     initApp
 } from './js/app.js';

@@ -9,6 +9,10 @@ import {
     showWarning
 } from './ui/errorHandler.js';
 
+import {
+    icons
+} from '/src/js/utils/icons.js'
+
 export function initApp() {
     console.log('Инициализация приложения');
     store.dispatch(fetchProducts());
@@ -60,3 +64,14 @@ function renderProducts(products) {
     }
 
 }
+
+function addIconsToHeader() {
+    const searchBox = document.getElementById('search-box');
+    const cartBtn = document.getElementById('cart-btn');
+
+    searchBox.insertAdjacentHTML('afterbegin', icons.search);
+
+    cartBtn.insertAdjacentHTML('afterbegin', icons.cart);
+}
+
+document.addEventListener('DOMContentLoaded', addIconsToHeader);

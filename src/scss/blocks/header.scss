@@ -1,5 +1,6 @@
 @use '/src/scss/base/variables.scss'as *;
 .header {
+    padding: 23px 16px;
     &__hamburger {
         width: 20px;
         gap: 5px;
@@ -18,5 +19,9 @@
                 transition: all 1s;
             }
         }
+    }
+    .icon {
+        width: 24px;
+        cursor: pointer;
     }
 }
