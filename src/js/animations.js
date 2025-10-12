@@ -8,4 +8,5 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     isToggle('header__hamburger--active', 'hamburger')
+
 });

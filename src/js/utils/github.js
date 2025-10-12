@@ -1,9 +1,10 @@
 document.addEventListener('DOMContentLoaded', github);
 
 function github() {
-    const block = document.getElementById('github');
+    try {
+        const block = document.getElementById('github');
 
-    block.innerHTML = `
+        block.innerHTML = `
         <span>
             GitHub - 
                     <a href="https://github.com/depst0r/Fake-Store-API.git">
@@ -11,4 +12,8 @@ function github() {
                 </a>
             </span>
     `
+    } catch (error) {
+        console.error('error', error)
+    }
+
 };
