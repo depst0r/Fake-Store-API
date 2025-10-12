@@ -5,13 +5,24 @@ import {
 import {
     FakeStoreAPI
 } from '../../api/fakeStoreAPI.js';
+import {
+    showApiError,
+    showNetworkError
+} from '/src/js/ui/errorHandler.js';
+
 
 
 export const fetchProducts = createAsyncThunk(
     'products/fetchProducts',
     async() => {
-        const products = await FakeStoreAPI.getProducts();
-        return products;
+        try {
+            const products = await FakeStoreAPI.getProducts();
+            return products;
+        } catch (error) {
+            showApiError(error);
+            return rejectWithValue(error.message);
+        }
+
     }
 );
 

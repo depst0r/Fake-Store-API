@@ -4,6 +4,10 @@ import {
 import {
     fetchProducts
 } from './store/slices/productsSlice.js';
+import {
+    showError,
+    showWarning
+} from './ui/errorHandler.js';
 
 export function initApp() {
     console.log('Инициализация приложения');
@@ -48,10 +52,11 @@ function renderProducts(products) {
         </div>
     `;
     } catch (error) {
-        const errorDiv = document.createElement('div');
-        errorDiv.className = 'error-message';
-        errorDiv.innerHTML = `<h3>⚠️ ${error.message} ⚠️</h3>`;
-        document.body.appendChild(errorDiv);
+        showError(error.message, {
+            type: 'error',
+            position: 'center',
+            autoHide: false
+        });
     }
 
 }
