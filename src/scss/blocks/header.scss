@@ -1,14 +1,18 @@
 @use '/src/scss/base/variables.scss'as *;
 .header {
-    padding: 23px 16px;
+    &__logo {
+        align-items: center;
+    }
     &__hamburger {
-        width: 20px;
-        gap: 5px;
+        flex-direction: column;
+        justify-content: center;
+        gap: 4.5px;
         cursor: pointer;
         transition: all 1s;
         &-line {
-            width: 20px;
-            height: 2px;
+            width: 25px;
+            height: 3px;
+            border-radius: 2px;
             background-color: $black;
             &:nth-child(1) {
                 transform: translateY(0px) rotate(0deg);
@@ -20,8 +24,42 @@
             }
         }
     }
+    &__search-input {
+        border-radius: 10px;
+        color: rgba(87, 87, 87, 0.63);
+        font-weight: 800;
+        letter-spacing: 1px;
+        width: 0;
+        opacity: 0;
+        height: 20px;
+        transition: all 1s;
+        &--open {
+            width: 100%;
+            opacity: 1;
+            transition: all 1s;
+        }
+    }
+    &__columns {
+        justify-content: space-between;
+        align-items: center;
+        min-height: 64px;
+    }
     .icon {
         width: 24px;
         cursor: pointer;
+    }
+    &__col {
+        align-items: center;
+        justify-content: center;
+        gap: 16px;
+    }
+    &__cart {
+        position: relative;
+        &-counter {
+            position: absolute;
+            top: -8px;
+            left: 16px;
+            font-size: 12px;
+        }
     }
 }

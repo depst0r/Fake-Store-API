@@ -1,0 +1,7 @@
+@use '/src/scss/base/variables.scss' as *;
+@mixin title {
+    font-weight: 700;
+    font-size: 36px;
+    line-height: normal;
+    color: black;
+}

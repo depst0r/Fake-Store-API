@@ -1,3 +1,4 @@
+@use '/src/scss/libs/modern-normalize.min.css';
 @use '/src/scss/base/base.scss';
 @use '/src/scss/base/mixins.scss';
 @use '/src/scss/base/variables.scss';
@@ -5,4 +6,4 @@
 @use '/src/scss/animation/transition.scss';
 @use '/src/scss/ui/error.scss';
 @use '/src/scss/ui/github.scss';
-@use '/src/scss/libs/modern-normalize.min.css';
+@use '/src/scss/ui/title.scss';
