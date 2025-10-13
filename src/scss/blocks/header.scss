@@ -2,6 +2,14 @@
 .header {
     &__logo {
         align-items: center;
+        opacity: 1;
+        display: block;
+        transition: display 0.5s;
+        &--show {
+            opacity: 0;
+            display: none;
+            transition: display 0.5s;
+        }
     }
     &__hamburger {
         flex-direction: column;
@@ -24,17 +32,36 @@
             }
         }
     }
+    &__nav {
+        position: relative;
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        border-radius: 10px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        .mobile-nav {
+            position: absolute;
+            align-items: left;
+            gap: 10px;
+            width: 100%;
+            a {
+                text-decoration: none;
+                color: $black;
+            }
+        }
+    }
     &__search-input {
         border-radius: 10px;
         color: rgba(87, 87, 87, 0.63);
         font-weight: 800;
         letter-spacing: 1px;
         width: 0;
+        padding: 0;
         opacity: 0;
         height: 20px;
         transition: all 1s;
-        &--open {
+        &--active {
             width: 100%;
+            padding: 3px;
             opacity: 1;
             transition: all 1s;
         }
