@@ -7,26 +7,43 @@ document.addEventListener('DOMContentLoaded', () => {
         })
     }
 
-    const searcShow = () => {
+    const searchShow = () => {
         try {
-            const btn = document.querySelector('#search-box');
+            const searchBox = document.querySelector('#search-box');
             const inputSearch = document.querySelector('input[data-search]');
             const logo = document.querySelector('.header__logo');
-            btn.addEventListener('click', () => {
-                inputSearch.classList.toggle('header__search-input--active')
-                if (!inputSearch.classList.contains('.header__search-input--active')) {
-                    inputSearch.value = ''
-                    logo.classList.toggle('header__logo--show')
+
+            searchBox.addEventListener('click', e => {
+                e.stopPropagation();
+
+                const isActive = inputSearch.classList.contains('header__search-input--active');
+
+                if (isActive) {
+
+                    inputSearch.classList.remove('header__search-input--active');
+                    inputSearch.value = '';
+                    logo.classList.remove('header__logo--show');
+                } else {
+
+                    inputSearch.classList.add('header__search-input--active');
+                    logo.classList.add('header__logo--show');
+                    inputSearch.focus();
                 }
-            })
+            });
+
+            document.addEventListener('click', e => {
+                if (!searchBox.contains(e.target)) {
+                    inputSearch.classList.remove('header__search-input--active');
+                    logo.classList.remove('header__logo--show');
+                }
+            });
+
         } catch (error) {
-
+            console.error('Ошибка в searchShow:', error);
         }
-
-
     }
 
-    searcShow()
+    searchShow()
     isToggle('header__hamburger--active', 'hamburger')
 
 });

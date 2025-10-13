@@ -3,12 +3,11 @@
     &__logo {
         align-items: center;
         opacity: 1;
-        display: block;
-        transition: display 0.5s;
+        display: flex;
+        transition: opacity 0.5s ease, visibility 0.5s ease;
         &--show {
             opacity: 0;
-            display: none;
-            transition: display 0.5s;
+            visibility: hidden;
         }
     }
     &__hamburger {
@@ -50,6 +49,9 @@
         }
     }
     &__search-input {
+        position: relative;
+        display: flex;
+        justify-content: flex-end;
         border-radius: 10px;
         color: rgba(87, 87, 87, 0.63);
         font-weight: 800;
@@ -58,12 +60,14 @@
         padding: 0;
         opacity: 0;
         height: 20px;
-        transition: all 1s;
+        transition: all 0.5s ease;
+        border: none;
+        outline: none;
         &--active {
-            width: 100%;
-            padding: 3px;
+            width: auto;
+            max-width: 120px;
+            padding: 8px 12px;
             opacity: 1;
-            transition: all 1s;
         }
     }
     &__columns {
