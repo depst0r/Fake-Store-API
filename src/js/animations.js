@@ -2,17 +2,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const addToggleClass = () => {
         const elem = document.getElementById('hamburger');
-        const menu = document.getElementById('mobile-nav')
-        if (!elem) {
-            console.warn(`Element with id "${id}" not found`);
+        const menu = document.getElementById('mobile-nav');
+
+        if (!elem || !menu) {
+            console.warn('Hamburger или меню не найдены');
             return;
         }
+
         elem.addEventListener('click', () => {
             elem.classList.toggle('header__hamburger--active');
-            menu.classList.toggle('mobile-nav--active')
+            menu.classList.toggle('mobile-nav--active');
         });
     };
-
 
 
     const searchShow = () => {
