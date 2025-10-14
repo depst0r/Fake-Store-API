@@ -5,9 +5,11 @@
         opacity: 1;
         display: flex;
         transition: opacity 0.5s ease, visibility 0.5s ease;
+        width: 100%;
         &--show {
             opacity: 0;
             visibility: hidden;
+            width: 0;
         }
     }
     &__hamburger {
@@ -64,8 +66,7 @@
         border: none;
         outline: none;
         &--active {
-            width: auto;
-            max-width: 120px;
+            width: 100%;
             padding: 8px 12px;
             opacity: 1;
         }
