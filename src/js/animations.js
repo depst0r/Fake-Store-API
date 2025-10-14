@@ -1,11 +1,19 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-    const isToggle = (activeClass, id) => {
-        const elem = document.getElementById(id);
+    const addToggleClass = () => {
+        const elem = document.getElementById('hamburger');
+        const menu = document.getElementById('mobile-nav')
+        if (!elem) {
+            console.warn(`Element with id "${id}" not found`);
+            return;
+        }
         elem.addEventListener('click', () => {
-            elem.classList.toggle(activeClass)
-        })
-    }
+            elem.classList.toggle('header__hamburger--active');
+            menu.classList.toggle('mobile-nav--active')
+        });
+    };
+
+
 
     const searchShow = () => {
         try {
@@ -29,14 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     logo.classList.add('header__logo--show');
                     inputSearch.focus();
                 }
-            });
-
-            document.addEventListener('click', e => {
-                if (!searchBox.contains(e.target)) {
-                    inputSearch.classList.remove('header__search-input--active');
-                    logo.classList.remove('header__logo--show');
-                }
-            });
+            })
 
         } catch (error) {
             console.error('Ошибка в searchShow:', error);
@@ -44,6 +45,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     searchShow()
-    isToggle('header__hamburger--active', 'hamburger')
+    addToggleClass()
 
 });
