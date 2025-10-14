@@ -1,7 +1,7 @@
 @use '/src/scss/base/variables.scss';
 .hero {
     background: #f2f0f1;
-    padding: 40px 0;
+    padding-top: 40px;
     &__column {
         &:nth-child(1) {
             gap: 22px;
