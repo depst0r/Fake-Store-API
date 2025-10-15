@@ -16,4 +16,14 @@ export class FakeStoreAPI {
         const response = await fetch(`${API_BASE}/products/${id}`);
         return await response.json();
     }
+
+    static async getCategories() {
+        const response = await fetch(`${API_BASE}/products/categories`);
+        return await response.json();
+    }
+
+    static async getProductsByCategory(category) {
+        const response = await fetch(`${API_BASE}/products/category/${category}`);
+        return await response.json();
+    }
 }
