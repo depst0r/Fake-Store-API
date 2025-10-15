@@ -86,3 +86,20 @@ Fake-Store-API/
     Добавление в корзину - Просто нажмите "В корзину" на любом товаре
 
     Управление корзиной - Откройте корзину для просмотра и оформления заказа
+
+// Пример добавления товара в корзину
+function addToCart(product) {
+    // Автоматическое обновление интерфейса
+    // Уведомление об успешном добавлении
+    // Сохранение в LocalStorage
+}
+
+🛠 Технологии
+<div align="center">
+Технология	Назначение
+https://img.shields.io/badge/JavaScript-F7DF1E?style=flat&logo=javascript&logoColor=black	Основной язык программирования
+https://img.shields.io/badge/Redux-764ABC?style=flat&logo=redux&logoColor=white	Управление состоянием приложения
+https://img.shields.io/badge/CSS3-1572B6?style=flat&logo=css3&logoColor=white	Стилизация и анимации
+https://img.shields.io/badge/HTML5-E34F26?style=flat&logo=html5&logoColor=white	Структура приложения
+https://img.shields.io/badge/Webpack-8DD6F9?style=flat&logo=webpack&logoColor=black	Сборка проекта
+</div>
