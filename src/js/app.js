@@ -16,6 +16,15 @@ import {
     setCurrentCategory
 } from './store/slices/categoriesSlice.js';
 
+// Картинки для категорий (можно заменить на свои)
+const categoryImages = {
+    "electronics": "https://images.unsplash.com/photo-1498049794561-7780e7231661?w=300&h=200&fit=crop",
+    "jewelery": "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=300&h=200&fit=crop",
+    "men's clothing": "https://images.unsplash.com/photo-1552374196-1ab2a1c593e8?w=300&h=200&fit=crop",
+    "women's clothing": "https://images.unsplash.com/photo-1483985988355-763728e1935b?w=300&h=200&fit=crop",
+    "all": "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=300&h=200&fit=crop"
+};
+
 function formatCategoryName(category) {
     const names = {
         "electronics": "Электроника",
@@ -29,7 +38,6 @@ function formatCategoryName(category) {
 
 export function initApp() {
     console.log('Инициализация приложения');
-
 
     store.dispatch(fetchProducts());
     store.dispatch(fetchCategories());
@@ -48,60 +56,81 @@ function updateUI(state) {
     } = state;
 
     if (categories.loading || products.loading) {
-        // document.getElementById('app').innerHTML = '<p>Загрузка...</p>';
+        showLoading();
     } else if (categories.error || products.error) {
-        // document.getElementById('app').innerHTML = `<p>Ошибка: ${categories.error || products.error}</p>`;
+        showError(categories.error || products.error);
     } else {
-        renderCategories(categories.items);
-        // renderProducts(products.items);
+        if (state.categories.currentCategory === 'all' || !state.categories.currentCategory) {
+            renderCategories(categories.items);
+        } else {
+            filterProductsByCategory(state.categories.currentCategory);
+        }
     }
 }
 
+function showLoading() {
+    const app = document.getElementById('app');
+    app.innerHTML = `
+        <div class="loading">
+            <div class="loading__spinner"></div>
+            <p class="loading__text">Загрузка...</p>
+        </div>
+    `;
+}
+
 function renderCategories(categories) {
-    const categoriesContainer = document.getElementById('categories-nav') || createCategoriesContainer();
+    const app = document.getElementById('app');
 
     const categoriesHTML = categories.map(category => `
-        <button class="category-btn" data-category="${category}">
-            ${formatCategoryName(category)}
-        </button>
+        <div class="categories__card" data-category="${category}">
+            <div class="categories__image">
+                <img src="${categoryImages[category]}" alt="${formatCategoryName(category)}">
+                <div class="categories__overlay">
+                    <span class="categories__btn">Выбрать</span>
+                </div>
+            </div>
+            <div class="categories__content">
+                <h3 class="categories__name">${formatCategoryName(category)}</h3>
+            </div>
+        </div>
     `).join('');
 
-    categoriesContainer.innerHTML = `
-        <button class="category-btn active" data-category="all">Все товары</button>
-        ${categoriesHTML}
+    app.innerHTML = `
+        <section class="categories">
+            <div class="categories__container">
+                <div class="categories__header">
+                    <h1 class="categories__title">Категории товаров</h1>
+                    <p class="categories__subtitle">Выберите интересующую вас категорию</p>
+                </div>
+                <div class="categories__grid">
+                    ${categoriesHTML}
+                </div>
+            </div>
+        </section>
     `;
 
     addCategoryHandlers();
 }
 
-function createCategoriesContainer() {
-    const container = document.createElement('nav');
-    container.className = 'categories-nav';
-    container.id = 'categories-nav';
-    document.getElementById('app').prepend(container);
-    return container;
-}
-
-
 function addCategoryHandlers() {
-    const buttons = document.querySelectorAll('.category-btn');
+    const categoryCards = document.querySelectorAll('.categories__card');
 
-    buttons.forEach(button => {
-        button.addEventListener('click', () => {
+    categoryCards.forEach(card => {
+        card.addEventListener('click', () => {
+            const category = card.dataset.category;
 
-            buttons.forEach(btn => btn.classList.remove('active'));
+            // Показываем анимацию нажатия
+            card.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+                card.style.transform = 'scale(1)';
+            }, 150);
 
-            button.classList.add('active');
-
-            const category = button.dataset.category;
+            // Устанавливаем категорию и фильтруем товары
             store.dispatch(setCurrentCategory(category));
-
-
             filterProductsByCategory(category);
         });
     });
 }
-
 
 function filterProductsByCategory(category) {
     const state = store.getState();
@@ -113,35 +142,55 @@ function filterProductsByCategory(category) {
         );
     }
 
-    renderProducts(productsToShow);
+    renderProducts(productsToShow, category);
 }
 
-function renderProducts(products) {
+function renderProducts(products, category) {
     try {
         const app = document.getElementById('app');
 
-        // prettier-ignore
-        const element = document.getElementById('categories-nav');
-        const categoriesHTML = element ? element.outerHTML : '';
-
         const productsHTML = products.map(product => `
-            <div class="product-card">
-                <img src="${product.image}" alt="${product.title}" width="200">
-                <h3>${product.title}</h3>
-                <p>$${product.price}</p>
-                <p>⭐ ${product.rating.rate} (${product.rating.count} отзывов)</p>
+            <div class="products__card">
+                <div class="products__image">
+                    <img src="${product.image}" alt="${product.title}" loading="lazy">
+                </div>
+                <div class="products__content">
+                    <h3 class="products__name">${product.title}</h3>
+                    <p class="products__category">${formatCategoryName(product.category)}</p>
+                    <div class="products__price">$${product.price}</div>
+                    <div class="products__rating">
+                        ⭐ ${product.rating.rate} <span>(${product.rating.count} отзывов)</span>
+                    </div>
+                    <button class="products__action">В корзину</button>
+                </div>
             </div>
         `).join('');
 
         app.innerHTML = `
-            ${categoriesHTML}
-            <div class="products-grid">
-                ${productsHTML}
-            </div>
+            <section class="products">
+                <div class="products__container">
+                    <div class="products__header">
+                        <button class="products__back" id="back-to-categories">
+                            ← Вернуться к категориям
+                        </button>
+                        <h1 class="products__title">${formatCategoryName(category)}</h1>
+                        <p class="products__count">Найдено товаров: ${products.length}</p>
+                    </div>
+                    <div class="products__grid">
+                        ${productsHTML}
+                    </div>
+                </div>
+            </section>
         `;
 
+        // Добавляем обработчик для кнопки "Назад"
+        document.getElementById('back-to-categories').addEventListener('click', () => {
+            store.dispatch(setCurrentCategory('all'));
+            renderCategories(store.getState().categories.items);
+        });
 
-        addCategoryHandlers();
+        // Добавляем обработчики для кнопок "В корзину"
+        addProductHandlers();
 
     } catch (error) {
         showError(error.message, {
@@ -152,10 +201,33 @@ function renderProducts(products) {
     }
 }
 
+function addProductHandlers() {
+    const addToCartButtons = document.querySelectorAll('.products__action');
+
+    addToCartButtons.forEach(button => {
+        button.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const productCard = button.closest('.products__card');
+            const productName = productCard.querySelector('.products__name').textContent;
+
+            // Анимация добавления в корзину
+            button.textContent = 'Добавлено!';
+            button.style.background = '#28a745';
+
+            setTimeout(() => {
+                button.textContent = 'В корзину';
+                button.style.background = '';
+            }, 2000);
+
+            console.log(`Товар "${productName}" добавлен в корзину`);
+            // Здесь можно добавить логику добавления в корзину
+        });
+    });
+}
+
 function addIconsToHeader() {
     const searchBox = document.getElementById('search-box');
     const cartBtn = document.getElementById('cart-btn');
-
 
     if (searchBox) {
         searchBox.insertAdjacentHTML('afterbegin', icons.search);
@@ -165,7 +237,6 @@ function addIconsToHeader() {
         cartBtn.insertAdjacentHTML('afterbegin', icons.cart);
     }
 }
-
 
 document.addEventListener('DOMContentLoaded', () => {
     initApp();

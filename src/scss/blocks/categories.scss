@@ -1,0 +1,296 @@
+@use '/src/scss/base/variables.scss'as *;
+.categories {
+    &__container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 2rem;
+    }
+    &__header {
+        text-align: center;
+        margin-bottom: 4rem;
+    }
+    &__title {
+        font-size: 2.5rem;
+        color: #333;
+        margin: 0 0 1rem 0;
+        font-weight: 700;
+    }
+    &__subtitle {
+        font-size: 1.125rem;
+        color: #666;
+        line-height: 1.6;
+        max-width: 600px;
+        margin: 0 auto;
+    }
+    &__grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 2rem;
+    }
+    &__card {
+        background: white;
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        cursor: pointer;
+        transition: all 0.3s ease;
+        position: relative;
+        &:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+    }
+    &__image {
+        position: relative;
+        height: 200px;
+        overflow: hidden;
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        .categories__card:hover & {
+            img {
+                transform: scale(1.1);
+            }
+        }
+    }
+    &__overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.7);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        .categories__card:hover & {
+            opacity: 1;
+        }
+    }
+    &__btn {
+        color: white;
+        padding: 10px 20px;
+        border: 2px solid white;
+        border-radius: 25px;
+        font-weight: bold;
+    }
+    &__content {
+        padding: 1.5rem;
+    }
+    &__name {
+        margin: 0;
+        font-size: 1.25rem;
+        color: #333;
+        text-align: center;
+        font-weight: 600;
+    }
+}
+
+.products {
+    padding: 2rem 0;
+    &__container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 2rem;
+    }
+    &__header {
+        text-align: center;
+        margin-bottom: 3rem;
+        position: relative;
+    }
+    &__back {
+        position: absolute;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        background: #007bff;
+        color: white;
+        border: none;
+        padding: 12px 24px;
+        border-radius: 25px;
+        cursor: pointer;
+        transition: background 0.3s ease;
+        font-weight: 600;
+        &:hover {
+            background: #0056b3;
+        }
+    }
+    &__title {
+        font-size: 2.5rem;
+        color: #333;
+        margin: 0 0 0.5rem 0;
+        font-weight: 700;
+    }
+    &__count {
+        color: #666;
+        margin: 0;
+        font-size: 1.125rem;
+    }
+    &__grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+    }
+    &__card {
+        background: white;
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+        &:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+    }
+    &__image {
+        height: 250px;
+        padding: 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #f8f9fa;
+        img {
+            max-height: 100%;
+            max-width: 100%;
+            object-fit: contain;
+        }
+    }
+    &__content {
+        padding: 1.5rem;
+    }
+    &__name {
+        font-size: 1.1rem;
+        margin: 0 0 0.5rem 0;
+        color: #333;
+        line-height: 1.4;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        font-weight: 600;
+    }
+    &__category {
+        color: #666;
+        font-size: 0.9rem;
+        margin: 0 0 0.5rem 0;
+        text-transform: capitalize;
+    }
+    &__price {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #007bff;
+        margin: 0 0 0.5rem 0;
+    }
+    &__rating {
+        color: #ffc107;
+        margin: 0 0 1rem 0;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        span {
+            color: #666;
+            font-size: 0.9rem;
+        }
+    }
+    &__action {
+        width: 100%;
+        background: #28a745;
+        color: white;
+        border: none;
+        padding: 12px;
+        border-radius: 8px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background 0.3s ease;
+        &:hover {
+            background: #218838;
+        }
+    }
+}
+
+.loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem;
+    &__spinner {
+        width: 40px;
+        height: 40px;
+        border: 4px solid #f3f3f3;
+        border-top: 4px solid #007bff;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+        margin-bottom: 1rem;
+    }
+    &__text {
+        font-size: 1.125rem;
+        color: #666;
+    }
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@mixin mobile {
+    @media (max-width: 768px) {
+        @content;
+    }
+}
+
+@mixin tablet {
+    @media (max-width: 1024px) {
+        @content;
+    }
+}
+
+.categories {
+    @include tablet {
+        padding: 4rem 0;
+    }
+    @include mobile {
+        padding: 2rem 0;
+        &__container {
+            padding: 0 1rem;
+        }
+        &__title {
+            font-size: 2rem;
+        }
+        &__grid {
+            grid-template-columns: 1fr;
+            gap: 1rem;
+        }
+    }
+}
+
+.products {
+    @include mobile {
+        &__header {
+            text-align: center;
+        }
+        &__back {
+            position: relative;
+            margin-bottom: 1rem;
+            top: auto;
+            transform: none;
+        }
+        &__title {
+            font-size: 2rem;
+        }
+        &__grid {
+            grid-template-columns: 1fr;
+            gap: 1rem;
+        }
+    }
+}
